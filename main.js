@@ -23,6 +23,8 @@ class Example extends Phaser.Scene {
     // Background
     this.add.image(0, 0, 'sky').setOrigin(0, 0);
 
+    this.cameras.main.setBounds(0, 0, window.innerWidth, window.innerHeight);
+
     // Platforms
     this.createPlatforms();
 
@@ -67,10 +69,10 @@ class Example extends Phaser.Scene {
 
   createPlatforms() {
     this.platforms = this.physics.add.staticGroup();
-    this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-    this.platforms.create(600, 400, 'ground');
-    this.platforms.create(50, 250, 'ground');
-    this.platforms.create(750, 220, 'ground');
+    this.platforms.create(0, 600, 'ground').setScale(4, 2).refreshBody();
+    this.platforms.create(50, 350, 'ground');
+    this.platforms.create(500, 240, 'ground').setScale(0.5, 1).refreshBody();
+    this.platforms.create(700, 400, 'ground');
   }
 
   createPlayer() {
@@ -107,8 +109,8 @@ class Example extends Phaser.Scene {
   createStars() {
     this.stars = this.physics.add.group({
       key: 'star',
-      repeat: 1,
-      setXY: { x: 282, y: 0, stepX: 70 }
+      repeat: 6,
+      setXY: { x: 100, y: 0, stepX: 100 }
     });
 
     this.stars.children.iterate((child) => {
@@ -165,8 +167,8 @@ class Example extends Phaser.Scene {
 
 const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
+  width: 800, //window.innerWidth,
+  height: 600, //window.innerHeight,
   scene: Example,
   physics: {
     default: 'arcade',
@@ -174,7 +176,22 @@ const config = {
       gravity: { y: 300 },
       debug: false
     }
+  },
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
   }
 };
 
+// The game instance
 const game = new Phaser.Game(config);
+
+// Handle window resize
+// window.addEventListener('resize', () => {
+//   game.scale.resize(window.innerWidth, window.innerHeight);
+
+//   // Update camera bounds
+//   game.scene.scenes.forEach(scene => {
+//     scene.cameras.main.setBounds(0, 0, window.innerWidth, window.innerHeight);
+//   })
+// });
