@@ -71,7 +71,7 @@ class Example extends Phaser.Scene {
     this.platforms = this.physics.add.staticGroup();
     this.platforms.create(0, 600, 'ground').setScale(4, 2).refreshBody();
     this.platforms.create(50, 350, 'ground');
-    this.platforms.create(500, 240, 'ground').setScale(2, 1).refreshBody();
+    this.platforms.create(500, 240, 'ground').setScale(0.5, 1).refreshBody();
     this.platforms.create(700, 400, 'ground');
   }
 
